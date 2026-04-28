@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "sbdd-benchmark"
+version = "0.1.0"
+description = "A decision-centric framework for benchmarking generative AI for structure-based drug design"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+
+authors = [
+    { name = "Generation Benchmark Team" },
+]
+
+keywords = [
+    "drug discovery", "structure-based drug design", "generative AI",
+    "molecular generation", "benchmarking", "cheminformatics",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    # Core scientific stack
+    "pandas>=1.3",
+    "numpy>=1.20",
+    "scipy>=1.7",
+    # Cheminformatics (rdkit conda package — not installable via pip in all envs)
+    # Install with: conda install -c conda-forge rdkit
+    # Plotting
+    "matplotlib>=3.4",
+    "seaborn>=0.11",
+    # Progress & I/O
+    "tqdm>=4.60",
+    "pyarrow>=6.0",    # parquet support
+    "pyyaml>=6.0",     # config file parsing
+]
+
+[project.optional-dependencies]
+full = [
+    # Dimensionality reduction (for t-SNE / UMAP plots)
+    "scikit-learn>=1.0",
+    "umap-learn>=0.5",
+    # useful_rdkit_utils (REOS filter)
+    # Install: pip install useful-rdkit-utils
+]
+dev = [
+    "pytest>=7.0",
+    "jupyter",
+    "nbconvert",
+]
+
+[project.scripts]
+sbdd-benchmark = "cli:main"
+
+[project.urls]
+Repository = "https://github.com/your-lab/Generation_Benchmark"
+Issues     = "https://github.com/your-lab/Generation_Benchmark/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sbdd_benchmark*"]
+
+[tool.setuptools.package-data]
+"sbdd_benchmark" = ["py.typed"]
+"configs" = ["*.yaml"]

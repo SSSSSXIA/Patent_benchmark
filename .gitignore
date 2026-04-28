@@ -1,0 +1,10 @@
+_backup/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+.DS_Store
+
+# 超大文件（>50MB），超出安全上传范围
+results/baselines/stage1/similarity_scores.csv

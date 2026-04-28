@@ -1,0 +1,92 @@
+# SBDD Benchmark — default configuration
+# All paths are relative to the repo root unless absolute.
+
+# ── Data paths ──────────────────────────────────────────────────────────────
+data:
+  generated_unified: data/generated/unified      # {model}.parquet files
+  benchmark:         data/benchmark              # {target}.csv files
+  training_set:      data/training_set           # crossdocked_smiles.csv etc.
+
+# ── Training set files ───────────────────────────────────────────────────────
+training_sets:
+  default:    crossdocked_smiles.csv             # all models except PocketXMol
+  PocketXMol: pocketxmol_train_smiles.csv        # PocketXMol-specific
+
+# ── RAscore model path ───────────────────────────────────────────────────────
+rascore:
+  model_path: _backup/RAscore/RAscore/models/models/DNN_chembl_fcfp_counts/model.h5
+
+# ── Stage 1 parameters ───────────────────────────────────────────────────────
+stage1:
+  fingerprint_radius: 2
+  fingerprint_bits:   2048
+  tanimoto_thresholds: [0.2, 0.3, 0.5]
+  circles_threshold:   0.75
+  circles_n_runs:      3
+  circles_seed:        42
+  circles_max_pocketxmol_sample: 160000   # subsample PocketXMol to this count
+  fp_cache_dir: results/stage1/fp_cache   # cached training set fingerprints
+
+# ── Stage 2 parameters ───────────────────────────────────────────────────────
+stage2:
+  reos_rule_set: Dundee
+  descriptors:
+    - MW
+    - logP
+    - Fsp3
+    - N_AliR
+    - N_AroR
+    - N_ChiA
+    - N_HetA
+    - N_RotB
+    - N_BriA
+
+# ── Stage 3 parameters ───────────────────────────────────────────────────────
+stage3:
+  remove_stereochemistry: true   # strip stereo before exact matching
+  good_coverage_threshold: 0.05  # ">5% recovery" = good coverage
+
+# ── Target family definitions ────────────────────────────────────────────────
+families:
+  kinase:
+    - ROCK2
+    - CDK9
+    - JAK1
+    - ACVR1
+    - AKT1
+  non_kinase_enzyme:
+    - EZH2
+    - PRMT5
+    - MMP8
+    - WRN
+  gpcr:
+    - GCGR
+    - 5HT2A
+    - DRD2
+    - AGTR1
+  nuclear_receptor:
+    - LXRB
+    - FXR
+    - AR
+  ppi:
+    - BCL2
+    - BRD4
+    - Keap1
+    - EED
+
+# ── Output paths ─────────────────────────────────────────────────────────────
+results:
+  stage1:    results/stage1
+  stage2:    results/stage2
+  stage3:    results/stage3
+  baselines: results/baselines
+  figures:   results/figures
+
+# ── Model display names ───────────────────────────────────────────────────────
+display_names:
+  MolCraft: MolCRAFT
+
+# ── Per-model molecule caps ───────────────────────────────────────────────────
+molecule_caps:
+  default:    8000   # applies to all models
+  PocketXMol: null   # unlimited
