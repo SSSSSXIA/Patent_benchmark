@@ -1,11 +1,7 @@
-# SBDD Benchmark
+#  decision-centric framework for benchmarking generative AI in structure-based drug design
 
-**A decision-centric framework for benchmarking generative AI in structure-based drug design**
 
-This package implements the three-stage evaluation framework described in:
-
-> *"A decision-centric framework for benchmarking generative AI for structure-based drug design"*
->
+This package implements the three-stage evaluation framework described in: *"A decision-centric framework for benchmarking generative AI for structure-based drug design"*.
 
 Each stage mirrors a real medicinal chemistry decision point:
 
